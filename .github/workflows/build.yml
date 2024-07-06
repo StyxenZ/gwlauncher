@@ -15,7 +15,7 @@ jobs:
       shell: pwsh
 
     env:
-      Project: "GW Launcher\\GW Launcher.csproj"
+      Project: "GW Launcher\GW Launcher.csproj"
       PublishProfile: "FrameworkDependent"
 
     steps:
