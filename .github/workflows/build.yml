@@ -1,3 +1,4 @@
+---
 name: Build
 
 on:
@@ -11,11 +12,11 @@ jobs:
     runs-on: windows-2022
 
     defaults:
-    run:
-      shell: pwsh
+      run:
+        shell: pwsh
 
     env:
-      Project: "GW Launcher\GW Launcher.csproj"
+      Project: "GW Launcher\\GW Launcher.csproj"
       PublishProfile: "FrameworkDependent"
 
     steps:
@@ -33,7 +34,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Restore Tools
-      run: dotnet tool restore
+      run: dotnet tool restore --tool-manifest .config\dotnet-tools.json
 
     - name: GitVersion
       run: dotnet dotnet-gitversion /output buildserver
@@ -47,3 +48,4 @@ jobs:
     #   with:
     #     name: MSIX Package
     #     path: ${{ env.Wap_Project_Directory }}\AppPackages
+...
