@@ -43,6 +43,6 @@ jobs:
       if: ${{ github.ref == 'refs/heads/master' }}
       with:
         name: GW Launcher
-        path: "Publish\\GW Launcher.exe"
+        path: "Publish\\GW_Launcher.exe"
         if-no-files-found: error
 ...
