@@ -7,13 +7,13 @@ on:
   pull_request:
     branches: [ "master" ]
 
+defaults:
+  run:
+    shell: pwsh
+
 jobs:
   build:
     runs-on: windows-2022
-
-    defaults:
-      run:
-        shell: pwsh
 
     env:
       Project: "GW Launcher\\GW Launcher.csproj"
@@ -30,19 +30,19 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Setup MSBuild.exe
+    - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Tool Restore
+    - name: .NET Tool Restore
       run: dotnet tool restore
 
     - name: GitVersion
       run: dotnet dotnet-gitversion /output buildserver
 
-    - name: Publish GW Launcher
+    - name: Build GW Launcher
       run: msbuild $Env:Project /target:"Restore;Publish" /m /nodeReuse:false /property:"PublishProfile=$Env:PublishProfile;Version=$Env:GitVersion_FullSemVer"
 
-    - name: Upload GW Launcher artifact
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       if: ${{ github.ref == 'refs/heads/master' }}
       with:
