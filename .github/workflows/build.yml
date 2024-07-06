@@ -34,16 +34,17 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Tool Restore
-      run: Set-Location -Path ${{ github.workspace }};dotnet tool restore
+      run: dotnet tool restore
 
     - name: GitVersion
-      run: Set-Location -Path ${{ github.workspace }};dotnet dotnet-gitversion /output buildserver
+      run: dotnet dotnet-gitversion /output buildserver
 
     - name: Publish GW Launcher
-      run: Set-Location -Path ${{ github.workspace }};msbuild $Env:Project /target:"Restore;Publish" /m /nodeReuse:false /property:"PublishProfile=$Env:PublishProfile;Version=$Env:GitVersion_FullSemVer"
+      run: msbuild $Env:Project /target:"Restore;Publish" /m /nodeReuse:false /property:"PublishProfile=$Env:PublishProfile;Version=$Env:GitVersion_FullSemVer"
 
     - name: Upload GW Launcher artifact
       uses: actions/upload-artifact@v4
+      if: ${{ github.ref == 'refs/heads/master' }}
       with:
         name: GW Launcher
         path: "Publish\\GW Launcher.exe"
