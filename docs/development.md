@@ -5,7 +5,7 @@ GW Launcher build pipeline can be found [here](../.github/workflows/build.yml).
 Steps:
 - Calculate version using [GitVersion](https://gitversion.net/) based on the Git tag
 - Build GW Launcher using the `FrameworkDependent` [publish profile](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles)
-- 
+- Conditionally upload GW Launcher executable as a build [artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) if building off the default branch
 
 ## Local
 ### Compilation
